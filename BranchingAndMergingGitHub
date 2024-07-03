@@ -1,0 +1,624 @@
+dbda@dbda-HP-406-G1-MT:~$ mkdir branch_merge_test
+
+dbda@dbda-HP-406-G1-MT:~$ cd branch_merge_test/
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git init
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint:
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+Initialized empty Git repository in /home/dbda/branch_merge_test/.git/
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ sudo nano hello.py
+[sudo] password for dbda: 
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	hello.py
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git add hello.py
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   hello.py
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git commit hello.py -m "branching and merging"
+[master (root-commit) ed00f77] branching and merging
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello.py
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git status
+On branch master
+nothing to commit, working tree clean
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git log
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (HEAD -> master)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+    
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch -M main
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git checkout -b bug-1-branch
+Switched to a new branch 'bug-1-branch'
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git checkout -b bug-2-branch
+Switched to a new branch 'bug-2-branch'
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+  bug-1-branch
+* bug-2-branch
+  main
+  
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git switch bug-1-branch
+Switched to branch 'bug-1-branch'
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+* bug-1-branch
+  bug-2-branch
+  main
+  
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch -M user
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+  bug-2-branch
+  main
+* user
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git checkout -b bug-1-branch
+Switched to a new branch 'bug-1-branch'
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+* bug-1-branch
+  bug-2-branch
+  main
+  user
+  
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ nano hello.py
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ sudo nano hello.py
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git add .
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git commit -m "Deleloper 1 has fixed bug 1"
+[bug-1-branch 3265c2d] Deleloper 1 has fixed bug 1
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+ 
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git log
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (HEAD -> bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user, main, bug-2-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+    
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git log
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (HEAD -> bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user, main, bug-2-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+    
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git switch bug-2-branch
+Switched to branch 'bug-2-branch'
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+  bug-1-branch
+* bug-2-branch
+  main
+  user
+  
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ sudo nano hello.py
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ sudo nano hello.py
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git add .
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git commit -m "Deleloper 2 has fixed bug 2 "
+[bug-2-branch c5bfb13] Deleloper 2 has fixed bug 2
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git log
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921 (HEAD -> bug-2-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user, main)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+    
+    
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+  bug-1-branch
+* bug-2-branch
+  main
+  user
+  
+  
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git merge bug-1-branch
+Auto-merging hello.py
+CONFLICT (content): Merge conflict in hello.py
+Automatic merge failed; fix conflicts and then commit the result.
+
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ sudo nano hello.py
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git add .
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git commit -m "after resolving merge"
+[bug-2-branch d715789] after resolving merge
+
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git merge bug-1-branch
+Already up to date.
+
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git switch main
+Switched to branch 'main'
+
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+  bug-1-branch
+  bug-2-branch
+* main
+  user
+  
+  
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ ls
+hello.py
+
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ ls -l
+total 4
+-rw-rw-r-- 1 dbda dbda 15 Jul  3 14:21 hello.py
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git merge bug-2-branch
+Updating ed00f77..d715789
+Fast-forward
+ hello.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+ 
+ 
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ ls -l
+total 4
+-rw-rw-r-- 1 dbda dbda 128 Jul  3 14:22 hello.py
+
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ sudo nano hello.py
+
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git log
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main, bug-2-branch)
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main, bug-2-branch)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main, bug-2-branch)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+...skipping...
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main, bug-2-branch)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+(END)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+(END)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+(END)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+(END)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+(END)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+(END)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+(END)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+    branching and merging
+(END)
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main, bug-2-branch)
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main, bug-2-branch)
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main, bug-2-branch)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+...skipping...
+
+                   SUMMARY OF LESS COMMANDS
+
+      Commands marked with * may be preceded by a number, N.
+      Notes in parentheses indicate the behavior if N is given.
+      A key preceded by a caret indicates the Ctrl key; thus ^K is ctrl-K.
+
+  h  H                 Display this help.
+  q  :q  Q  :Q  ZZ     Exit.
+ ---------------------------------------------------------------------------
+
+                           MOVING
+
+  e  ^E  j  ^N  CR  *  Forward  one line   (or N lines).
+  y  ^Y  k  ^K  ^P  *  Backward one line   (or N lines).
+  f  ^F  ^V  SPACE  *  Forward  one window (or N lines).
+  b  ^B  ESC-v      *  Backward one window (or N lines).
+  z                 *  Forward  one window (and set window to N).
+  w                 *  Backward one window (and set window to N).
+  ESC-SPACE         *  Forward  one window, but don't stop at end-of-file.
+  d  ^D             *  Forward  one half-window (and set half-window to N).
+  u  ^U             *  Backward one half-window (and set half-window to N).
+  ESC-)  RightArrow *  Right one half screen width (or N positions).
+  ESC-(  LeftArrow  *  Left  one half screen width (or N positions).
+  ESC-}  ^RightArrow   Right to last column displayed.
+  ESC-{  ^LeftArrow    Left  to first column.
+  F                    Forward forever; like "tail -f".
+  ESC-F                Like F but stop when search pattern is found.
+  r  ^R  ^L            Repaint screen.
+  R                    Repaint screen, discarding buffered input.
+        ---------------------------------------------------
+        Default "window" is the screen height.
+        Default "half-window" is half of the screen height.
+ ---------------------------------------------------------------------------
+
+                          SEARCHING
+
+  /pattern          *  Search forward for (N-th) matching line.
+  ?pattern          *  Search backward for (N-th) matching line.
+  n                 *  Repeat previous search (for N-th occurrence).
+  N                 *  Repeat previous search in reverse direction.
+  ESC-n             *  Repeat previous search, spanning files.
+  ESC-N             *  Repeat previous search, reverse dir. & spanning files.
+  ESC-u                Undo (toggle) search highlighting.
+  ESC-U                Clear search highlighting.
+  &pattern          *  Display only matching lines.
+HELP -- Press RETURN for more, or q when done...skipping...
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main, bug-2-branch)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166 (bug-1-branch)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7 (user)
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch -d bug-1-branch
+Deleted branch bug-1-branch (was 3265c2d).
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch -d bug-2-branch
+Deleted branch bug-2-branch (was d715789).
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+* main
+  user
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch -d user
+Deleted branch user (was ed00f77).
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git branch
+* main
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git log
+commit d715789e1ac8210763b9bec4dcf10f90e401ab03 (HEAD -> main)
+Merge: c5bfb13 3265c2d
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:20:47 2024 +0530
+
+    after resolving merge
+
+commit c5bfb13d8d1292a9e533d729cba891e9abb4b921
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:08:44 2024 +0530
+
+    Deleloper 2 has fixed bug 2
+
+commit 3265c2dc05d3f70620e1af5a9a61ae139be63166
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 14:03:08 2024 +0530
+
+    Deleloper 1 has fixed bug 1
+
+commit ed00f773c6035dd2fed85218fab9a0b576dfcbd7
+Author: Kartik <kartiksapra2327@gmail.com>
+Date:   Wed Jul 3 13:50:53 2024 +0530
+
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ git status
+On branch main
+nothing to commit, working tree clean
+dbda@dbda-HP-406-G1-MT:~/branch_merge_test$ sudo nano hello.py
+
